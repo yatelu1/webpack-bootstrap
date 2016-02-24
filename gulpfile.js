@@ -16,7 +16,7 @@ var webpackConf = require('./webpack.config');
 var webpackDevConf = require('./webpack-dev.config');
 
 var src = process.cwd() + '/src';
-var assets = process.cwd() + '/assets';
+var assets = process.cwd() + '/dist';
 
 // js check
 gulp.task('hint', function() {
@@ -24,8 +24,8 @@ gulp.task('hint', function() {
     var stylish = require('jshint-stylish');
 
     return gulp.src([
-            '!' + src + '/js/lib/**/*.js',
-            src + '/js/**/*.js'
+            '!' + src + '/components/**/*.js',
+            src + '/resources/js/*.js'
         ])
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));

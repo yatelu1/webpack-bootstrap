@@ -1,4 +1,4 @@
-# webpack-bootstrap
+# webpack-gulp
 
 基于webpack+gulp搭建纯静态页面型前端工程解决方案模板。
 
@@ -12,7 +12,7 @@
 ### 拷贝项目模板
 
 ``` bash
-$ git clone https://github.com/chemdemo/webpack-bootstrap.git
+$ git clone git@github.com:yatelu1/webpack-bootstrap.git
 ```
 
 

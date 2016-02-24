@@ -7,7 +7,7 @@
 
 'use strict';
 
-require('../../css/components/dialog.css');
+require('./dialog.css');
 
 console.info('require dialog module.');
 

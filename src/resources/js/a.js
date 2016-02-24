@@ -17,14 +17,14 @@ require('zepto');
 // 直接使用npm模块
 var _ = require('lodash');
 
-var url = require('./utils/url');
-var report = require('./helpers/report');
+var url = require('../../components/utils/url');
+var report = require('../../components/helpers/report');
 
 var component = url.getQuery('component');
 
 if('dialog' === component) {
     require.ensure([], function(require) {
-        var dialog = require('./components/dialog');
+        var dialog = require('../../components/dialog');
         // todo ...
 
         $('#dialog').removeClass('none');
@@ -33,7 +33,7 @@ if('dialog' === component) {
 
 if('toast' === component) {
     require.ensure([], function(require) {
-        var toast = require('./components/toast');
+        var toast = require('../../components/toast');
         // todo ...
 
         $('#toast').removeClass('none');
@@ -41,7 +41,7 @@ if('toast' === component) {
 }
 
 require.ensure([], function() {
-    var ajax = require('./helpers/ajax');
+    var ajax = require('../../components/helpers/ajax');
     var t = _.now();
 
     ajax.request({

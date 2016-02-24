@@ -17,5 +17,5 @@ require('zepto');
 // 直接使用npm模块
 var _ = require('lodash');
 
-var report = require('./helpers/report');
-var bar = require('./helpers/bar');
+var report = require('../../components/helpers/report');
+var bar = require('../../components/helpers/bar');
