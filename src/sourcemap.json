@@ -1,7 +1,12 @@
 {
-    "zepto": "components/lib/zepto",
+    "base": "components/utils/base",
+
+    "artTemplate": "components/lib/artTemplate",
+
+    "select2Css": "components/select2/select2.min.css",
 
     "commonCss": "resources/css/common.css",
+
 
     "webpackLogo": "resources/img/webpack.png"
 }

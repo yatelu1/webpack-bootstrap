@@ -67,7 +67,7 @@ gulp.task('default', ['pack'], function() {
 gulp.task('deploy', function() {
     var sftp = require('gulp-sftp');
 
-    return gulp.src(assets + '/**')
+    return gulp.src(assets + '/resources')
         .pipe(sftp({
             host: '[remote server ip]',
             remotePath: '/www/app/',
@@ -88,7 +88,7 @@ gulp.task('hmr', function(done) {
         stats: webpackDevConf.devServer.stats,
     });
 
-    devSvr.listen(8080, '0.0.0.0', function(err) {
+    devSvr.listen(3006, '0.0.0.0', function(err) {
         if(err) throw new gutil.PluginError('webpack-dev-server', err);
 
         gutil.log('[webpack-dev-server]',

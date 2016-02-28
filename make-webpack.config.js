@@ -1,9 +1,9 @@
 /*
-* @Author: dmyang
-* @Date:   2015-08-02 14:16:41
-* @Last Modified by:   dmyang
-* @Last Modified time: 2015-09-14 15:08:13
-*/
+ * @Author: dmyang
+ * @Date:   2015-08-02 14:16:41
+ * @Last Modified by:   dmyang
+ * @Last Modified time: 2015-09-14 15:08:13
+ */
 
 'use strict';
 
@@ -43,9 +43,10 @@ function makeConf(options) {
             // 在debug模式下，__build目录是虚拟的，webpack的dev server存储在内存里
             path: path.resolve(debug ? '__build' : assets),
             filename: debug ? '[name].js' : 'resources/js/[chunkhash:8].[name].min.js',
-            chunkFilename: debug ? '[chunkhash:8].chunk.js' : 'resources/js/[chunkhash:8].chunk.min.js',
-            hotUpdateChunkFilename: debug ?'[id].[chunkhash:8].js' : 'resources/js/[id].[chunkhash:8].min.js',
-            publicPath: debug ? '/__build/' : ''
+            chunkFilename: debug ? '' +
+            '[chunkhash:8].chunk.js' : 'resources/js/[chunkhash:8].chunk.min.js',
+            hotUpdateChunkFilename: debug ? '[id].[chunkhash:8].js' : 'resources/js/[id].[chunkhash:8].min.js',
+            publicPath: debug ? '/__build/' : 'http://localhost:8080/works/webpack-bootstrap/dist/'
         },
 
         resolve: {
@@ -59,7 +60,6 @@ function makeConf(options) {
         },
 
         module: {
-            noParse: ['zepto'],
             loaders: [
                 {
                     test: /\.(jpe?g|png|gif|svg)$/i,
@@ -68,9 +68,10 @@ function makeConf(options) {
                             optimizationLevel: 3, pngquant:{quality: "65-80", speed: 4}}',
                         // url-loader更好用，小于10KB的图片会自动转成dataUrl，
                         // 否则则调用file-loader，参数直接传入
-                        'url?limit=10000&name=resources/img/[hash:8].[name].[ext]',
+                        'url?limit=10000&name=resources/img/[hash:8].[name].[ext]'
                     ]
                 },
+                //{test: /\.(jpg|png)$/, loader: "url?limit=8192"},
                 {
                     test: /\.(woff|eot|ttf)$/i,
                     loader: 'url?limit=10000&name=fonts/[hash:8].[name].[ext]'
@@ -87,11 +88,6 @@ function makeConf(options) {
                 // Modules must be shared between all entries
                 minChunks: chunks.length // 提取所有chunks共同依赖的模块
             })
-            //new CommonsChunkPlugin({
-            //    name: 'common-bc',
-            //    chunks: ['vendors', 'b', 'c'],
-            //    minChunks: 2
-            //})
         ],
 
         devServer: {
@@ -103,7 +99,7 @@ function makeConf(options) {
         }
     };
 
-    if(debug) {
+    if (debug) {
         // 开发阶段，css直接内嵌
         var cssLoader = {
             test: /\.css$/,
@@ -141,15 +137,15 @@ function makeConf(options) {
 
         // 自动生成入口文件，入口js名必须和入口文件名相同
         // 例如，a页的入口文件是a.html，那么在js目录下必须有一个a.js作为入口文件
-        var pages = fs.readdirSync(srcDir+'/pages');
+        var pages = fs.readdirSync(srcDir + '/pages/');
 
-        pages.forEach(function(filename) {
+        pages.forEach(function (filename) {
             var m = filename.match(/(.+)\.html$/);
 
-            if(m) {
+            if (m) {
                 // @see https://github.com/kangax/html-minifier
                 var conf = {
-                    template: path.resolve(srcDir+'/pages/', filename),
+                    template: path.resolve(srcDir + '/pages/', filename),
                     // @see https://github.com/kangax/html-minifier
                     // minify: {
                     //     collapseWhitespace: true,
@@ -158,7 +154,7 @@ function makeConf(options) {
                     filename: filename
                 };
 
-                if(m[1] in config.entry) {
+                if (m[1] in config.entry) {
                     conf.inject = 'body';
                     conf.chunks = ['vendors', m[1]];
                 }
@@ -167,7 +163,7 @@ function makeConf(options) {
             }
         });
 
-        // config.plugins.push(new UglifyJsPlugin());
+        config.plugins.push(new UglifyJsPlugin());
     }
 
     return config;
@@ -178,12 +174,12 @@ function genEntries() {
     var names = fs.readdirSync(jsDir);
     var map = {};
 
-    names.forEach(function(name) {
+    names.forEach(function (name) {
         var m = name.match(/(.+)\.js$/);
         var entry = m ? m[1] : '';
         var entryPath = entry ? path.resolve(jsDir, name) : '';
 
-        if(entry) map[entry] = entryPath;
+        if (entry) map[entry] = entryPath;
     });
 
     return map;

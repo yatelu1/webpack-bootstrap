@@ -21,7 +21,7 @@ var colors = require('colors');
 var pkg = require('./package.json');
 var env = process.env.NODE_ENV;
 var debug = !env || env === 'development';
-var viewDir = debug ? 'src' : 'assets';
+var viewDir = debug ? 'src' : 'dist';
 
 // load routes
 var routes = require('./routes');

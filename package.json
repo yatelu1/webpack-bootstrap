@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node-dev app",
     "build": "gulp",
-    "release": "NODE_ENV=prduction node app",
+    "dist-tag": "NODE_ENV=prduction node app",
     "deploy": "gulp deploy"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
   "devDependencies": {
     "colors": "^1.1.2",
     "css-loader": "^0.15.6",
+    "ejs": "^2.4.1",
     "ejs-loader": "^0.2.1",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
@@ -28,6 +29,8 @@
     "html-webpack-plugin": "^1.6.0",
     "image-webpack-loader": "^1.6.1",
     "imagemin": "^3.2.0",
+    "imports-loader": "^0.6.5",
+    "jquery": "^1.9.1",
     "jshint-stylish": "^2.0.1",
     "jsx-loader": "^0.13.2",
     "koa": "^0.21.0",
